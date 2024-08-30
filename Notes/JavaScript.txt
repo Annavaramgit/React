@@ -1,0 +1,289 @@
+playcode.io ==>practice website
+
+ES5 VERSION
+=================
+-->In this version new methods and features are introduced
+
+isArray(),map(),filter(),forEach(),every(),some(),indexOf(),lastIndexOf()==>array features
+stringify() ==>Json features
+valueOf() ==>Date features
+
+
+Ex:-
+-----------------
+==>isArray()
+const arr = 520;          
+console.log(Array.isArray(arr));   //false
+
+
+==>map() example
+const arr = [52,58]     
+arr.map(
+  function(ele){
+    console.log(ele*2) //104,116
+  }
+)
+
+
+==>filter()example
+const arr = [52,58]      
+const res=arr.filter(
+  function(ele){
+   return ele>52;
+  }
+)
+console.log(res)           //[58]
+
+
+==>forEach() example      
+const arr = [52,58]   
+arr.forEach(
+  function(ele){
+  console.log(ele+1);    //53,59
+  }
+)
+
+
+
+==>every() ==it means in the array all the elements satisfy the condition then then it retuns true
+             if even one element in the array not satifies the condition then it will retuturn false 
+
+
+
+const arr = [52,58,101,58,78]
+const res=arr.every(
+  function(ele){
+  return ele>52
+  }
+)
+console.log(res)   //false bcz 52!>52 ,here one element  is not  satisfies then its false 
+
+
+
+
+==>some()Example ==it means in the array few/some/one the elements satisfy the condition then then it retuns true
+             ifall  element in the array not satifies the condition then it will retuturn false
+
+
+const arr = [52,58,101,58,78]
+const res=arr.some(
+  function(ele){
+  return ele>100
+  }
+)
+console.log(res)   //true,here atleast one element satisfies the condition then its true
+
+
+stringify() example
+------------------
+-->it is uses converts object to json format
+const info={
+  name:"mahi",
+  adress:"hyderabad",
+  phone:"7995224060"
+}
+console.log(JSON.stringify(info))      //{"name":"mahi","adress":"hyderabad","phone":"7995224060"}
+
+
+
+
+
+
+ES6 VERSION
+==========================
+NEW FEATURE ARE,,,,
+
+Let,Const    
+Arrow function
+classess
+For..of
+default parameter
+rest operator
+spread operator
+destructuring
+
+NOTE=
+let is block level,var is global level
+const means we can't reasign
+
+
+
+
+==>Arrow function() example
+--------------------------------------
+ex1:-
+
+const user = (num)=>{console.log("hello arow funfunction "+num)}
+user(10); //hello arow funfunction 10
+
+ex2:-
+
+const user =[10,58,85]
+var res=user.filter(
+   x=>x>10
+).forEach(i=>console.log(i))   //58,85
+
+
+
+==>for..of
+=====================
+-->it also like for ,forEach loops but in different style
+
+ex:
+
+const user =[10,58,85]
+for(const a of user){
+  console.log(a)        //10,58,85
+}
+
+
+==>default parameter
+----------------------------
+-->some times i dont want send particular parameter to the function while invoking the function
+-->some times i will send the arguement 
+-->then that situation we need to handle even thought paramenter not passed then print default value 
+
+
+ex:
+const user=(id,name,adress='hyd')=>{
+  console.log("id :"+id+" name: "+name+" adress: "+adress);
+}
+user(10,'mahi','ndd')   //id :10 name: mahi adress: ndd
+user(10,'mahi')        //id :10 name: mahi adress: hyd
+
+
+
+
+
+==>rest operator
+----------------------
+-->it means the function need to accept any no.of arguemenents then we can use this
+-->...(three dot's) we have to use
+
+Note
+--------
+-->this rest operator in the function syntax should use at the last argument place not in the middle or starting arguement place
+
+ex:
+
+const user=(id,...adress)=>{
+  console.log("id :"+id+" adress: "+adress);
+}
+user(10,'mahi','ndd',87,'ongole','ndd',)     //id :10 adress: mahi,ndd,87,ongole,ndd
+user(10)				     //id :10 adress: 
+
+
+
+
+
+==>spread operator
+----------------------------
+-->if one array values want to spread to another array then use this
+
+
+
+ex-1:
+const arr1 = [10,20,30];
+arr2 = [...arr1]
+console.log(arr2)          //[10,20,30]
+
+ex-2:
+
+const arr1 = [10,20,30];
+const arr2 = [50,55,78];
+arr3 = [...arr1,...arr1]
+console.log(arr3)          //(6) [10, 20, 30, 10, 20, 30]
+
+
+
+==>destructuring
+--------------------------
+-->it used to assign any object values to individual variables
+
+ex-1: Object into indiavidual values
+
+const employee = {
+  id:10,
+  name:'rana',
+  adress:'Ranchi'
+}
+console.log(employee.name)    //rana
+
+const{n} = employee;
+console.log("name of the employee:: "+name)   //name of the employee:: rana
+
+const{id:ID,name,adress:add}=employee;
+console.log(ID+"::"+name+":::"+add)            //10::rana:::Ranchi
+
+
+
+ex-2:array into individual values
+
+const employee = [10,'mahi','ranchi']
+const[id,name,add]=employee
+console.log(id+"-"+name+"-"+add)              //10-mahi-ranchi
+
+
+
+eample of randomly produce one name in the given array of names
+----------------------------------------------------------------------
+
+
+  render(){
+    const handleNames=()=>{
+    const names=['nand','junaid','satya','narendra','harshini','shreya' ]
+    const int = Math.floor(Math.random()*8)
+    return names[int]
+  }
+ console.log("winner is:::"+handleNames())  //every time name changes 
+
+
+
+
+
+how to create raect application *
+application folder structure 
+what is jsx
+components(functional&class)
+ways to apply css
+props  -->html have attributes so if we create html in the react then those html attributed are called as props
+canditional rendering
+React events 
+React List
+Form handling
+Fragments
+
+adv:
+component life cycle methods
+Raect hooks
+Redux
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+

@@ -1,0 +1,1016 @@
+
+qns)
+diff b/w class and functional comp's
+life cycle ofclass comp
+rendering and conditional based rendering
+what is React
+=========================
+-->ReactJS is an open-source JavaScript library 
+-->by using this we can  building dynamic and interactive user interfaces(UIs) and reusable components
+-->it used Virtual DOM(javascript object)
+  -->javascript virtual dom is faster than regular dom
+-->react supports uni-directional data flow only parent component to child component or child to parent
+-->we can crreate single page application,web&mobile applicatons
+
+
+VirtualDom
+===================
+-->VDOM is light-wight and in-memory representation of real dom,
+-->it is a copy of real-dom that react use track the changes
+
+
+Differences b/w Virtual dom and RegularDom
+==================================================
+--> When a component's state or props change, a new Virtual DOM is created. 
+--> React then compares this new Virtual DOM with the previous version using a process called "reconciliation".
+-->then react checks previous and current VDOM .and reach updates real dom where updates are detected
+-->ShaikAffanAhmed
+
+-->regulardom ,When a change is made to the DOM, the browser typically needs to re-render the entire page or large portions of it
+
+
+
+JSX(javascript xml)
+============================
+-->JSX is a powerfull feature in the react
+-->JSX is a syntax extension for javascript that aloows you write html-like code directly within javascript file.
+-->{actually we won't write UI code in the html file(.html  file) ,we write html(UI)code in the javascipt using jsx then react it self convert html to javascript method(React.createElement())}
+
+Note= 
+-->we can create html element by using javascript by using createElement() method
+    react.createElement()
+-->in the react we write html in the javascript 
+-->if we follow above syntax its very complex
+-->to avoid that we can write directly html code in the javascript file by using jsx 
+-->then react wil covert elements like createElement() methods like (internally uses createElement() for creating the element )
+
+
+
+without jsx
+<------------------->
+
+Using pure javascript create h1 tag
+<<----------------------->>
+let h1_tag = document.createElement('h1');
+h1_tag.innerText="hello world";
+document.body.append(h1_tag);
+
+using react create h1 tag
+<<----------------->>
+let h1_tag=React.createElement("h1",{},"hello")   -->in the curly braces we can give attributes/properties
+const root=ReactDom.createRoot(document.getElementById('root'))
+root.render(h1_tag);
+
+
+with jsx
+-----------------
+
+let menu=
+(
+<h1>Hello this is jsx</h1>   //wroted directly html ,but actually it is  not html  it is html-like code using jsx,,,
+                             //it will convert like react creating h1 tag in the behind(babel library is responsible for convert)
+)
+
+const root = ReactDom.createRoot(document.getElementById('root'));
+root.render(menu);
+
+
+How to Create and run react project
+=====================================================
+Node js is required for execute react 
+npx create-react-app app_name         =>create new react application   (npx=node pacjage executor)
+npm start                             =>run the react application
+
+
+
+
+Folder Structure
+=========================
+
+node_modules
+---------------------------
+-->what ever libraries are required for react,react dom this folder have those libraries
+-->when we create project then this folder comes in the project structure
+
+
+index.html
+-----------------
+-->when ever we run the application then index.html first rendered and diplayed 
+
+
+index.js
+----------------
+-->what ever(whcih component or html code ) we mentioned here that code reflected/displayed in the index.html
+-->it is also the main file (from here the data displaying starting)
+
+App.js
+--------
+-->App is a one of the component
+-->for every component there two-js files and one css file come(one js is for testing,one js for write code,css for to apply styles)
+-->in react we should write html code directly in the js file only ,by uisng jsx,bable it's convert element creation style as like javascript element creation
+-->so in App.js we can html code (inside function)
+-->by default this App component rendered in the index.html with help of index.js(in the index.js by default App rendered in index.html like below example) 
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
+
+
+
+reportWebVitals.js
+--------------------------
+-->it is used for measure the performance of our application
+
+
+
+.gitignore
+--------------
+-->it is used for actually we push our application in the github 
+-->so while your pushing our application if any folder,file you dont want to push then mention those folders/files in this .gitignore then it will ignore those folders/files
+-->actually we will not push the node_modules folder bcz it is very large 
+
+
+package.json
+---------------
+-->actually we will not push the node_modules in the github
+-->if user or anyone want to run our application(clone it from hit like that time)
+-->node_modules will not present so project will not run
+-->but what ever libraries,packages used in the application info present at package.json 
+-->so then user execute npm intsall then based on package.json info nodel_modules folder will generates
+
+
+Q)why in react html code should be placed in javascipt file
+-------------------------------------------------------------------
+-->react is library of javascript
+-->react uses Virtual DOM
+
+
+
+
+Components in React
+===============================
+-->Components are building block of React Application
+-->components are independent and re-usable code blocks containing logics and UI elements
+-->components are just like a function which return Html code
+
+Types Of Components
+-----------------------------
+-->two types of components in react
+1.Functional component
+2.Class based component
+
+
+In React in wrote HTml code in javascript file ,
+          in the javascript file we if wrote Html code in the function and return it then that is Functional Component
+	  in the javascript file we if wrote Html code in the class and return it then that is Class Based Component
+
+
+
+Note=
+-->In react there in no cli-command for to create component like angular(ng g c component_name)
+-->if we want to create component like Header then create manually Header.js(capital 1st letter) file and write code(functional style or class based stylde) and need to import (import React from 'react');
+-->if we want apply css to the Header.js then create Header.css and write css code and import this css file in the Header.js
+
+==>if we are using ES7 React/Redux/GraphQL/React-Native snippets
+==>shorct cut for create functional style code   is rfce (normal functional style it come)
+==>rafce is for arrows functional style
+1.Functional Example
+------------------------
+App.js
+<------->
+ import logo from './logo.svg';
+ import './App.css';
+import React from 'react';
+
+//functional component
+function App() {
+ let name='mahi'
+  return (
+    <h1>hello...{name}</h1>
+    
+    
+  );
+}
+
+
+Index.js
+<--------->
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <React.StrictMode>
+    <App />              //that functional component rendered in the root elememt(root ele is at index.html)
+  </React.StrictMode>
+);
+reportWebVitals();
+
+
+
+2.class based component example
+-----------------------------------
+/*class component*/
+App.js
+<--------->
+class App extends React.Component{     //need to extend React.component
+
+  render(){                           //in the render() we have to return html-like code(JSX)
+    const handleNames=()=>{
+    const names=['nand','junaid','satya','narendra','harshini','shreya' ]
+    const int = Math.floor(Math.random()*8)
+    return names[int]
+  }
+    return(
+      <div>
+        <h1>Best Employee Of this Sep Month::  {handleNames()}</h1>
+        {/* {name} */}
+      </div>
+    )
+  }
+}
+
+
+
+Index.js
+<--------->
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <React.StrictMode>
+    <App />              //that class based component rendered in the root elememt(root ele is at index.html)
+  </React.StrictMode>
+);
+reportWebVitals();
+---
+
+
+Rendering
+===============
+-->React Rendering means rendering html in  the webpage
+-->for rendering Html in webpage the React uses createRoot() and render() function
+-->createRoot()accept one arguemt that html elemt ,,intially root element is takes,that root element present at index.html file
+-->react() function is what ever we wrote inside this component,html code(using jsx syntax) that will be rendered 
+-->what ever you want to render then we need to mention inside the render() funtion.
+
+
+ex:
+------
+const container = document.getElementById('root');
+const root = ReactDOM.createRoot(container);
+          or
+//const root =React.createRoot(document.getElementById('root'));
+root.render(<p>Hello</p>);
+
+
+
+Contional Rendering
+----------------------------
+-->Based on the condition or based on user situation showing or hiding certain part of UI to user
+-->example is if the user loggedIn the applcation then show next further details other wise show login button
+
+
+example of conditional rendering
+<---------------------------------->
+1.App.js
+------------
+import "./App.css";
+import React from "react";
+
+import MapMethodsex from "./MapMethodsEx/MapMethodsex";
+
+const functionAsProp = (str) => {
+  
+  alert('clicked successfully: '+str)
+  console.log('clicke event')
+};
+
+//functional component
+function App() {
+
+  return (
+    <>
+      <MapMethodsex loggedIn={true} methodIs={() => functionAsProp('arguement')} />
+
+    </>
+  );
+}
+export default App;
+
+
+2.MapMethodsex.js
+----------------------------
+import React from 'react';
+
+const MapMethodsex = (props) => {
+  if (props.loggedIn) {                      //if loggin true then it will call methodIs() function other wise it will login button
+    return (
+      <div>
+        <button onClick={props.methodIs}>click</button>
+      </div>
+    );
+  } else {
+    return (
+      <div>
+        <a href="/">Login</a>
+        {console.log('login')}
+      </div>
+    );
+  }
+};
+export default MapMethodsex;
+---
+
+
+
+
+
+
+export and import
+===========================
+-->export , import are the keyword ,which used for code re-usablity
+-->if any class ,function,varible,etc want be use then use export
+-->if we want to use some othe class,function,varible then use import  
+
+export
+-------------
+-->export are two types
+1.default export
+2.named export
+
+1.default export
+<-------------------->
+-->default means we can use any name while we are importing
+-->but the condition is only one default fucntion,varible,class should ,if multiple daultes then that occurs error
+
+
+example of default expport
+<<-------------------------------->>
+Header.js
+---------------
+import React from 'react'
+
+const Header = () => {
+  return (
+    <header>
+        <h3>This is header</h3>
+    </header>
+  )
+}
+export default Header       //dault export
+
+App.js
+-------------
+ import logo from './logo.svg';
+ import './App.css';
+ import React from 'react';
+ import Header from './Header';   // instead of Header we can use any name 
+
+//functional component
+function App() {
+ let name='mahi'
+  return (
+    <>
+    <Header/>   
+    <h1>hello...{name}</h1>
+    </>
+    
+    
+  );
+}
+
+
+
+
+2.named export
+<-------------------->
+-->named export means what ever name in the export time(function name ,class name ,varble name) that name we need use
+
+
+example of named export
+<<-------------------------------->>
+Header.js
+----------------
+import React from 'react'
+
+export const Header = () => {
+  return (
+    <header>
+        <h3>This is header</h3>
+    </header>
+  )
+}
+
+App.js
+-----------------------------
+ import logo from './logo.svg';
+ import './App.css';
+ import React from 'react';
+ import {Header} from './Header';    //should use {} 
+
+//functional component
+function App() {
+ let name='mahi'
+  return (
+    <>
+    <Header/>   
+    <h1>hello...{name}</h1>
+    </>
+    
+    
+  );
+}
+---
+
+
+Props
+===========
+-->Props means properties
+-->which is used for send the data from parent component to child component
+-->the component which sends data is Parent Component,the Component which recieves is Child Component
+-->Props are read-only it's not allow child component to modify,child can use only
+-->send data from parent component to child compoenent just like send arguments to function
+
+
+example-1(functional component used in this)
+-------------------------------------------------
+
+1.index.js
+--------------------
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import App1 from './App';
+import reportWebVitals from './reportWebVitals';
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <React.StrictMode>
+    <App1 />                       //App.js is rendered here,so we can render our created components in App.js
+  </React.StrictMode>
+);
+
+
+
+2.App.js
+--------------------
+ import logo from './logo.svg';
+ import './App.css';
+ import React from 'react';
+ import Header from './Header';
+
+//functional component
+function App() {
+ let name='mahi'
+  return (
+    <>
+    <Header name='mahi' age='45'/>                //here Child component is Header and parent is App ,,here sending data from App to Header
+    <h1>hello...{name}</h1>
+    </>
+    
+    
+  );
+}
+
+
+
+3.Header.js
+-----------------------
+import React from 'react'
+
+ const Header = (props) => {        //function accept props here,,here we can use any name instead of props(but using props is standards)
+  return (
+    <header>
+        <h3>Name{props.name}</h3>
+        <h3>Name{props.age}</h3>
+    </header>
+  )
+}
+
+export default Header
+
+
+
+
+
+example-2(class based  component used in this)
+------------------------------------------------------
+
+
+1.index.js
+--------------------
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import App1 from './App';
+import reportWebVitals from './reportWebVitals';
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <React.StrictMode>
+    <App1 />                       //App.js is rendered here,so we can render our created components in App.js
+  </React.StrictMode>
+);
+
+
+
+2.App.js
+--------------------
+ import logo from './logo.svg';
+ import './App.css';
+ import React from 'react';
+ import Header from './Header';
+
+//functional component
+function App() {
+ let name='mahi'
+  return (
+    <>
+    <Header name='mahi' age='45'/>                //here Child component is Header and parent is App ,,here sending data from App to Header
+    <h1>hello...{name}</h1>
+    </>
+    
+    
+  );
+}
+
+
+
+3.Header.js
+---------------
+import React from 'react'
+class Header extends React.Component
+{
+  render()
+  {
+    return(
+      <>
+      <h3>Name{this.props.name}</h3>                     //for in the class based we need to this (it's refers access currect class obj)
+      <h3>Age{this.props.age}</h3>
+      </>
+    )
+  }
+}
+
+export default Header
+
+
+Note(below will apply both functional and class based componenents)
+<---------->
+-->if we change data which came from parent to child then it will occur error bcz props are immutable(read-only)
+---
+
+
+
+
+
+
+
+
+Props destructuring in react
+=========================================
+-->Props destructuring is a process of extracting properties from props and assign them to variables in concise way
+
+example
+=============
+
+1.App.js
+-------------
+
+ import './App.css';
+ import React from 'react';
+ import Header from './Header';
+import ImageEx from './ImageEx';
+
+ const userInfo={
+    name:'mahi bahi',
+    adress:'chennai',
+    job:'cricket',
+    age:45
+  
+  }
+
+//functional component
+function App() {
+ 
+ let name='mahi'
+  return (
+    
+	<>      
+    <h1>hello...{name}</h1>
+    <ImageEx userInformation={userInfo}/>
+    </>
+ );
+}
+
+
+
+2.ImageEx.js
+-----------------------
+import React from 'react'
+
+const ImageEx = (props) => {
+    const{name,adress,job,age}=props.userInformation    //this is destructuring
+  return (
+    <div>
+        <div>
+           
+            <h2>{name}</h2>
+            <h2>{adress}</h2>
+            <h2>{job}</h2>
+            <h2>{age}</h2>
+           
+        </div>
+    </div>
+  )
+}
+export default ImageEx
+
+
+
+
+
+
+Childer props
+=========================
+-->when we are calling child component with use of self-closing style(<App/>)
+-->what ever data sent inside the tag that is props
+-->we can also call component like opening and closing tag(<App></App>)
+-->while calling child component if we write b/w the opening and clsong tag(<App>This is child props example</App>) 
+-->when we access such data in the child component that is called childprops
+-->so,for that time we need to use props.childer syntax
+
+
+example
+--------------
+1.App.js
+----------------
+import "./App.css";
+import React from "react";
+import Header from "./Header";
+import ImageEx from "./ImageEx";
+import MapMethodsex from "./MapMethodsEx/MapMethodsex";
+
+
+//functional component
+
+function App() {
+  let name = "mahi";
+  return (
+    <>{users.map((user) => (
+        <MapMethodsex>This is children props</MapMethodsex>
+      ))}
+    </>
+  );
+}
+
+
+
+2.MapMethodsex.js
+----------------------
+import React from 'react';
+
+const MapMethodsex = (props) => {
+  console.log(props); // Optional: To verify the props being received
+  return (
+    <div>
+      <p>{props.children}</p>  //children name should 
+    </div>
+  );
+};
+
+export default MapMethodsex;
+---
+
+
+
+
+React Events
+======================
+-->Events are just some actions performed by a user to interact with any application
+  -->for example:-mouse click,hover on any component,loading webpage,etc...
+-->React events devided into three types
+ 1.Mouse Events      :- onClick,OnDoubleClick,etc...
+ 2.KeyBoard Events   :-onKeyDown,onKeyUp,onKeyPress
+ 3.Focus Events      :-onFocus,onBlur
+
+
+EventHandlers & EventManagement
+------------------------------------
+-->if any event is occurs the application should provide reaction/response that response defined at function or block of code
+-->this is process we called "EVENTHANDLER"
+-->this entire process of working with events with using event handlers is called as "EVENT MANAGEMENT"
+
+
+Synthetic React Events
+----------------------------
+-->React has it's own event handling system which is very similar to handling  events on DOM elements.
+-->the react handling system is called as "SYNTHETIC REACT EVENT".
+
+
+
+Example-1:onclick use in this ex(in the App.js itself it shows)
+---------------------------------------
+1.App.js
+---------------
+import "./App.css";
+import React from "react";
+
+
+const functionAsProp = (str) =>{
+
+  alert('hello events::-'+str)
+ console.log('hello react: '+str)
+  
+};
+
+//functional component
+function App() {
+  
+  return (
+    <>
+      <button onClick={()=>functionAsProp('arguments')}>ClickHere</button>
+    </>
+  );
+}
+export default App;
+
+
+Example-2(in this to call another component and passess functiona and perform event(onClick))
+---------------------------------------------------------------------------------------------
+1.App.js
+-------------
+import "./App.css";
+import React from "react";
+
+import MapMethodsex from "./MapMethodsEx/MapMethodsex";
+
+const functionAsProp = (str) =>{
+
+  alert('hello events::-'+str)
+ console.log('hello react: '+str)
+  
+};
+
+//functional component
+function App() {
+  
+  return (
+    <>
+      <MapMethodsex methodIs={ ()=>functionAsProp('arguement')}/>
+      
+    </>
+  );
+}
+export default App;
+
+
+2.MapMethodsex.js
+--------------
+import React from 'react';
+
+const MapMethodsex = (props) => {
+  console.log(props); // Optional: To verify the props being received
+  return (
+    <>
+      {/* <button onClick={props.methodIs}>clickHere</button> */}
+     <button onClick={props.methodIs}>click</button>
+     </>
+  );
+};
+
+export default MapMethodsex;
+---
+
+
+
+
+State and useState
+=========================
+ 
+1.State
+================
+-->State is a inbult object in react
+-->it handles storing the data managing the data which changes overtime in the component
+-->when the state of the component changes (data changes) then react re-renders whole component again for reflecting changes in the UI
+
+-->there are two methods avaialble to acheive this , handling dynamic values and shows in UI
+1.setState() --> which renders again component when state of component changes ,it is asynchronous
+2.bind()     -->when we want call setState() from outside (write setState() another function) then need to use this ,for use this we need to use constructor also
+
+
+NOTE=state of component means value of dynamic properties of React Component at given instance
+
+example-1 (only using State())
+=======================================
+1.App.js
+-----------
+import "./App.css";
+import React from "react";
+
+import MapMethodsex from "./MapMethodsEx/MapMethodsex";
+
+
+//functional component
+function App() {
+
+  return (
+    <>
+      <MapMethodsex />
+
+    </>
+  );
+}
+export default App;
+
+
+2.MapMethodsex.js
+-----------------------
+import React from 'react';
+
+class MapMethodsex extends React.Component {
+  state = {
+    price: 100
+  }
+
+  render() {
+    return (
+      <>
+        <div>
+          <h1>PRICE::::::  {this.state.price}</h1>
+        </div>
+        <div>
+          <input type='number' id='p' placeholder='Enter Price'/>
+        </div>
+        <div>
+          <button onClick={
+            ()=>{
+              let pr = document.getElementById('p').value;  //it will take what ever enter in the input feild (so whene ever iput feild value changes that need to render in the h1 tag Price)
+-              this.setState({price:pr})                     //it will use re-render when state of comp changes
+            }
+          }>
+            click
+          </button>
+          
+        </div>
+
+      </>
+
+    )
+  }
+export default MapMethodsex;
+
+
+example-2(used both setSate() and bind())
+----------------------------------------------------
+1.App.js
+------------
+import "./App.css";
+import React from "react";
+
+import MapMethodsex from "./MapMethodsEx/MapMethodsex";
+
+//functional component
+function App() {
+
+  return (
+    <>
+      <MapMethodsex />
+
+    </>
+  );
+}
+
+
+
+export default App;
+
+
+
+2.MapMethodsex.js
+-------------------------
+import React from 'react';
+
+
+class MapMethodsex extends React.Component {
+
+constructor(){
+  super()
+  this.handleSet = this.handleSet.bind(this);
+}
+  state = {
+    price: 100
+  }
+  render() {
+    return (
+      <>
+        <div>
+          <h1>PRICE::::::  {this.state.price}</h1>
+        </div>
+        <div>
+          <input type='number' id='p' placeholder='Enter Price' />
+        </div>
+        <div>
+          <button onClick={this.handleSet}>click</button>
+        </div>
+      </>
+    )
+  }
+   handleSet(){
+    let pr = document.getElementById('p').value;
+    this.setState({price:pr})
+
+  }
+}
+export default MapMethodsex;
+
+
+
+
+2.useState (useState)
+===========================
+-->useState is a Hook ,it like function
+-->it also strores and manages data which changes overtime 
+-->when ever the state(value of dynamic property of component at given instance) then compoenent re-rendered in the UI new data displayed
+-->useState returns two values one is CURRENT SATATE VALUE, FUNCTION TO UPDATE THE STATE
+
+1.App.js
+-------------
+import "./App.css";
+import React from "react";
+
+import MapMethodsex from "./MapMethodsEx/MapMethodsex";
+
+//functional component
+function App() {
+
+  return (
+    <>
+      <MapMethodsex />
+
+    </>
+  );
+}
+export default App;
+
+
+
+2.MapMethodsex.js
+--------------------
+import React,{useState} from 'react';   //need to inport useState
+
+const MapMethodsex = () => {
+
+  const[count,setCount] = useState(0);     //here count is variable(this we are increasing) , setCount is function (by using this we update the count
+  return(
+    <>
+    <div>
+      <h1>count::::{count}</h1>
+    </div>
+    <div>
+      <button onClick={()=>setCount(count+1)}>click</button>
+    </div>
+    
+    </>
+  )
+ 
+};
+export default MapMethodsex;
+---
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
