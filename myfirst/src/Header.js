@@ -1,27 +1,19 @@
 import React from 'react'
 
-//  const Header = (props) => {
-//   return (
-
-//         <h3>Name{props.name}</h3>
-//         <h3>Name{props.age}</h3>
-//     </header>
-//   )
-// }
+import './Header.css'
 
 
 
-class Header extends React.Component
-{
-  render()
-  {
-    return(
-      <>
-      <h3>Name{this.props.name}</h3>
-      <h3>Age{this.props.age}</h3>
-      </>
-    )
-  }
+const Header = (props) => {
+
+  
+  return (
+    <div>
+      
+     
+
+    </div>
+  )
 }
 
 export default Header
