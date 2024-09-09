@@ -1,13 +1,13 @@
-import React, {  useRef } from 'react'
+import React from 'react'
 
 const Home = () => {
-  const t = useRef(10)
+ 
 
 
   return (
     <div>
     
-      
+      <h1>Home page...</h1>
     </div>
   )
   
