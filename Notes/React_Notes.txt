@@ -12,8 +12,8 @@ what is React
 -->by using this we can  building dynamic and interactive user interfaces(UIs) and reusable components
 -->it used Virtual DOM(javascript object)
   -->javascript virtual dom is faster than regular dom
--->we can crreate single page application,web&mobile applicatons
-
+-->we can create single page application,web&mobile applicatons
+edms,ldap
 
 VirtualDom
 ===================
@@ -40,14 +40,27 @@ Difference b/w React and Angular
 -->Angular uses TypeScript
 
 -->React uses VDOM
--->Angular uses RegularDOM
+-->Angular uses RegularDOM/RealDOM
+
+
+
+
+How to Create and run react project
+=====================================================
+Node js is required for execute react 
+npx create-react-app app_name         =>create new react application   (npx=node pacjage executor)
+npm start                             =>run the react application
+
+
+
 
 
 JSX(javascript xml)
 ============================
 -->JSX is a powerfull feature in the react
 -->JSX is a syntax extension for javascript that allows you write html-like code directly within javascript file.
--->{actually we won't write UI code in the html file(.html  file) ,we write html(UI)code in the javascipt using jsx then react it self convert html to javascript method(React.createElement())}
+-->{actually we won't write UI code in the html file(.html  file) ,we write html(UI)code in the javascipt using jsx 
+                            then react it self convert html to javascript method(React.createElement())}
 
 Note= 
 -->we can create html element by using javascript by using createElement() method
@@ -86,16 +99,15 @@ let menu=
 
 const root = ReactDom.createRoot(document.getElementById('root'));
 root.render(menu);
+---
 
-
-How to Create and run react project
-=====================================================
-Node js is required for execute react 
-npx create-react-app app_name         =>create new react application   (npx=node pacjage executor)
-npm start                             =>run the react application
-
-
-
+JSX rules
+===================
+-->funtional or class component that name should starts with capital letter only
+-->return jsx in javascipt one one element ,if multiple elements then we have wrap all elements in one div or fragment	
+-->write javascript code in the jsx but in side {} curly braces
+etc......
+---
 
 Folder Structure
 =========================
@@ -152,7 +164,7 @@ package.json
 -->node_modules will not present so project will not run
 -->but what ever libraries,packages used in the application info present at package.json 
 -->so then user execute npm intsall then based on package.json info nodel_modules folder will generates
-
+---
 
 Q)why in react html code should be placed in javascipt file
 -------------------------------------------------------------------
@@ -1867,6 +1879,7 @@ useMemo
 ===============
 -->useMemo hook used for memoise the result of the function
 -->This means it will remember the computed  result of the function 
+-->function not re-calculated for every render unless dependecies changes
 -->useMemo function re-calculated when the dependencies(inputs) changing time only
 -->if the dependencies(input's) are same then it will not re-calculate or will not execute the function simply it will give previously calculated result
 -->by using this we can avoid the re-running the function or re-calculation the function for every time of component rendering
@@ -1877,6 +1890,8 @@ useMemo
                         then that situation we use useMemo ,so that filtering re-runs only when inputs/use filter criteria changing time
                         if the use given same inputs then function will not execute again and again ,give previous result
 
+
+Note= -->useMemo is for values
 
 
 exapmple(without using useMemo hook)
@@ -2035,12 +2050,30 @@ export default App;
 
 
 
-Note=here useMemo execute only once when though how many times component renders(time state chaging for every 1000 sec) ,upto inputs changes useMemo gives previous result.
+Note=here useMemo execute only once when though how many times component renders(time state chaging for every 1000 sec) ,
+               upto inputs changes useMemo gives previous result.
 ---
 
 
+useCallBack
+====================
+-->useCallBack hook used to memoise the function so  it is not re-render evry time unless dependencied chages
+-->this is usefull when we pass function as prop to child component
+-->if  we pass function as prop to child component ,if the parent component re-renders then new function reference passess to child component 
+         then child component re-render again
+-->to avoid the above situation we use useCallBack this will prevent re-renderness unless dependecies(inputs)changes
 
+example scenarion
+------------------------
+-->in the e-commerce website
+-->parent component have addCart function(it's add product in the cart) 
+-->parent component send this addCart() function to child comp as prop
+-->child component displays products and buttons for add to cart 
+-->if click then that product added to cart
+-->so here if the parent comp re-render then new function ref passess to child comp then child comp will re-render
+-->to avoid this we use useCallBack()hook
 
+NOTE=-->useCallBack if for memoise the function
 
 
 
@@ -2611,13 +2644,33 @@ export default App;
 
 
 
+Portals in React
+====================
+-->React Portals provide a way to render a child component into a different part of the DOM tree, outside of the parent component’s hierarchy.
+
+-->Normally, React renders components as children of their parent element in the DOM. However, 
+   sometimes you may want to render a component outside of its parent but still keep it part of the React component tree.  
+        This is where portals come in handy
+
+{example not practiced}
+---
 
 
 
 
+useReducer
+=================
+-->it is one of the hook
+-->used to handle state of the component like useState()
+-->handling complex state useReducer() is good
 
+-->useReducer is a hook that allows you to manage state in a React component using a reducer function.
 
-
+-->example scenarios
+<--------------------------->
+ In an e-commerce application, you might need to manage a shopping cart where users can add items, remove items, or update quantities. 
+Since the cart has multiple actions and a more complex structure (list of items, quantities, prices), useReducer is a good fit.
+---
 
 
 
