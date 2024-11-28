@@ -11,3 +11,63 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.parent {
+  border: 5px solid gray; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 90vh;
+  text-align: center;
+ 
+}
+
+.child{
+width: 100px;
+height:100px;
+background-color: red;
+/* gap: 100px; */
+}
+
+.about-container{
+
+  display: grid;
+  grid-template-columns:10% 80%   10%;
+  height:85vh;
+  grid-template-rows: 10% 80% 10%;
+
+  background-color: rgb(202, 203, 247);
+
+}
+
+.about-container>div{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color:rgb(192, 26, 26);
+  font-size: larger;
+  font-weight: 500;
+  font-style: italic;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.child1{
+grid-column:1/4;
+background-color: rgb(31, 216, 176);
+}
+.child2{
+  background-color: bisque;
+}
+.child3{
+  background-color: rgb(224, 129, 13);
+}
+.child4{
+  background-color: rgb(104, 88, 250);
+}
+
+
+.child5{
+  grid-column:1/4;
+  background-color: aqua;
+  }

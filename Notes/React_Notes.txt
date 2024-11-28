@@ -13,7 +13,7 @@ what is React
 -->it used Virtual DOM(javascript object)
   -->javascript virtual dom is faster than regular dom
 -->we can create single page application,web&mobile applicatons
-edms,ldap
+
 
 VirtualDom
 ===================
@@ -42,7 +42,8 @@ Difference b/w React and Angular
 -->React uses VDOM
 -->Angular uses RegularDOM/RealDOM
 
-
+-->angular supports two-way data binding
+-->react not support two-way data binding
 
 
 How to Create and run react project
@@ -125,7 +126,7 @@ index.html
 
 index.js
 ----------------
--->what ever(whcih component or html code ) we mentioned here that code reflected/displayed in the index.html
+-->what ever(which component or html code ) we mentioned here that code reflected/displayed in the index.html
 -->it is also the main file (from here the data displaying starting)
 
 App.js
@@ -167,6 +168,7 @@ package.json
 ---
 
 Q)why in react html code should be placed in javascipt file
+
 -------------------------------------------------------------------
 -->react is library of javascript
 -->react uses Virtual DOM
@@ -187,7 +189,7 @@ Types Of Components
 2.Class based component
 
 
-In React in wrote HTml code in javascript file ,
+In React we wrote HTml code in javascript file ,
           in the javascript file we if wrote Html code in the function and return it then that is Functional Component
 	  in the javascript file we if wrote Html code in the class and return it then that is Class Based Component
 
@@ -195,7 +197,7 @@ In React in wrote HTml code in javascript file ,
 
 Note=
 -->In react there in no cli-command for to create component like angular(ng g c component_name)
--->if we want to create component like Header then create manually Header.js(capital 1st letter) file and write code(functional style or class based stylde) and need to import (import React from 'react');
+-->if we want to create component like Header then create manually Header.js(capital 1st letter) file and write code(functional style or class based style) and need to import (import React from 'react');
 -->if we want apply css to the Header.js then create Header.css and write css code and import this css file in the Header.js
 
 ==>if we are using ES7 React/Redux/GraphQL/React-Native snippets
@@ -292,7 +294,7 @@ Component Life Cycle
 
 1.Mounting
 ---------------
--->it represent rendering react component in the given DOM node
+-->it represent like create react component in the given DOM node
 ==>Constrctor :-it invokes at first time comp is created,it initialize the state and binds methods
 constructor()
 componentDidMount()
@@ -397,7 +399,7 @@ export and import
 ===========================
 -->export , import are the keyword ,which used for code re-usablity
 -->if any class ,function,varible,etc want be use then use export
--->if we want to use some othe class,function,varible then use import  
+-->if we want to use some other class,function,varible then use import  
 
 export
 -------------
@@ -660,16 +662,14 @@ import ImageEx from './ImageEx';
 
 //functional component
 function App() {
- 
- let name='mahi'
+
   return (
     
-	<>      
-    <h1>hello...{name}</h1>
+    <>      
     <ImageEx userInformation={userInfo}/>
     </>
  );
-}
+ }
 
 
 
@@ -901,11 +901,11 @@ export default MapMethodsex;
 State
 =========
 -->State is nothing but a value of dynamic property of React component at given instance
--->it is an object it holds some information that may changes overtime
+**-->State is an object it holds some information that may changes overtime
 -->when the state of the component changes (data changes) then react re-renders whole component again for reflecting changes in the UI
 
 ==>Handling State in Class based component and function component is different 
-  -->in class based component we have to use      setState()
+  -->in class based component we have to use      setState()  
   -->in the functional component we have to use   useState() 
 
 
@@ -914,6 +914,7 @@ State
 ----------------------------------------------
 -->In class-based components, you use this.setState to update the state.
 -->This method schedules an update to the component's state object and triggers a re-render of the component with the updated state.
+    {setState makes rerender the component when the state of comp changes}
 
 Example
 ---------
@@ -1089,11 +1090,11 @@ export default App;
 
 2.MapMethodsex.js
 --------------------
-import React,{useState} from 'react';   //need to inport useState
+import React,{useState} from 'react';   //need to import useState
 
 const MapMethodsex = () => {
 
-  const[count,setCount] = useState(0); //here count is variable(this current s val) , setCount is function (by using this we update the count
+  const[count,setCount] = useState(0); //here count is variable(this current s val) , setCount is function (by using this we update the count)
   return(
     <>
     <div>
@@ -1108,6 +1109,96 @@ const MapMethodsex = () => {
  
 };
 export default MapMethodsex;
+
+
+Note = above is primitive type we given in the useState ,below example non-prmitive given
+
+
+
+ex2:object given in useState
+-------------------------------
+import { useState } from "react"
+
+
+const About = () => {
+
+  const [user,setUser]=useState({name:"mahi",age:20})
+ 
+  return (
+    <div>
+        <h1>About page...</h1>
+        <h2>Age of {user.name} is {user.age}</h2>
+        <button onClick={()=>{
+          user.age+=1;
+        setUser({...user}) 				//give like this,if primitive give directly if non-primitive dont give directly use like this kind
+        }}>age change</button>
+    </div>
+  )
+}
+
+export default About
+
+
+
+ex3:-the below one is asynchronous nature of useState
+--------------------------------------------------------------
+import {useState} from "react"
+const About=()=>{
+
+const[count,setCount] = useState(0);
+return(
+<>
+<h1>count is {count}</h1>
+<button onClick={
+()=>{
+setCount(count+1);
+setCount(count+2);
+setCount(count+3);   
+}
+}>change</button>
+</>
+);
+}
+
+o/p
+--------
+0 -->1st time
+3 -->2nd time(button hitting)
+6 -->3rd time(button hitting)
+
+explain
+========
+//react add thsese in the queue [1,2,3] 
+after 1 and 2 after 3 it will re-render but  it is like last one only re-render,no previous result not carry to next calling
+below example is callBack (previous answer will carry to next calling)
+
+
+
+ex4:-the below one is asynchronous nature of useState(previous answer carry to next call)
+--------------------------------------------------------------
+import {useState} from "react"
+const About=()=>{
+
+const[count,setCount] = useState(0);
+return(
+<>
+<h1>count is {count}</h1>
+<button onClick={
+()=>{
+setCount(count+1);   //0+1=1
+setCount((pre)=>{return pre+2});   //1+2=3
+  
+}
+}>change</button>
+</>
+);
+}
+
+o/p
+----
+0-->1st time
+3-->2nd time(button hitting)
+6-->3rd time(button hitting)
 ---
 
 
@@ -1127,7 +1218,7 @@ Data Binding
 
 
 
-1.One databinding example
+1.One way databinding example
 --------------------------------
 1.App.js
 ----------
@@ -1175,7 +1266,7 @@ explanation:-
 
 
 
-2.Two Way DataBinding Example
+2.Two Way DataBinding Example  (it is also a one way data binding ,two way is different ,two way react not support)
 --------------------------------------
 App.js
 ------------
@@ -1217,41 +1308,43 @@ explanation:-
 useEffect
 =============
 -->it is is one of the Hook
--->use to handle side effects in functional component.such as fetching data,updating dom
--->whenever componennt is mouting(renders) if we want to perform side effects (like api calling,etc..) then use this
+-->use to handle/execute side effects in functional component.such as fetching data,updating dom
+-->whenever component is mouting(renders) if we want to perform side effects (like api calling,etc..) then use this
 -->perfroming side effects
+Note= -->side effects nothing but interacting with outer world of the component
 
 {-->actually if we have requirement of calling api fetching data
 -->for fetching data it took some time
--->instead of waiting first the comonent is built and after api called after getting data is showed in the component 
+-->instead of waiting first the component is built and after api called after getting data is showed in the component 
 -->so,here UI renders without waiting API call && data fetching in the background  UI updated when data is ready
 
-==>for to acheive above useEffect used ,bcz what ever we wrote inside useEffect that will call after comp render }
+
+==>for to acheive above useEffect used ,bcz what ever we wrote inside useEffect that will call after comp render on UI }
 
 
 Synyax
 -----------
-useEffect(<FUNCTION>, <DEPENDECY>) 
+useEffect(<FUNCTION>,<DEPENDENCY>) 
 
 Note=<Dependency> is optional
 
 ex-1:
 --------
-useEffect(()->{                //it will call every time comp rendering
+useEffect(()=>{                //it will call every time comp rendering
     // Example Code             
 })
 
 
 ex-2
 ---------
-useEffect(()->{              //first time rendering time it will call
+useEffect(()=>{              //first time rendering time it will call
     // Example Code
 }, [] )
 
 
 ex-3
 ------
-useEffect(()->{               //first time rendering it will call and if props,state changes then it will call
+useEffect(()=>{               //first time rendering it will call and if props,state changes then it will call
     // Example Code
 }, [props, state] )
 
@@ -1261,7 +1354,7 @@ useEffect(()->{               //first time rendering it will call and if props,s
 
 Api calling
 =================
--->here we used dummy api
+-->here we used dummy api(fake api)
 -->https://fakestoreapi.com/docs(this website gives dummy api's)
 
 example
@@ -1275,7 +1368,7 @@ import ProductsCard from './ProductsCard';
 
 function App() {
 
-  //useState bcz Procuct data here changes  handle chaging data in functional comp we need to use useState
+  //useState bcz Procuct data here changes.to handle changing data in functional comp we need to use useState
   const [products, updateProducts] = useState([])
 
   /* for doing side effect operation fetching data(api calling) used useEffect */
@@ -1400,7 +1493,7 @@ ex:-the below shows  data when url meets specified
 <Routes>
 <Route path="/" element={<Home/>}/>
 <Route path="/about" element={<About/>}/>
-<Route path="/contact" element={<ontact/>}/>
+<Route path="/contact" element={<Contact/>}/>
 </Routes>
 </BrowserRouter>
 
@@ -1637,7 +1730,7 @@ import React, { useEffect, useRef } from 'react'
 const Home = () => {
   const h1_tag = useRef(null)    //useRef used initially value is null
  
-useEffect(()=>{{console.log(h1_tag.current)}})      //here iam printing h1 tag in the console ,this useEffect will call after comp renders
+useEffect(()=>{{console.log(h1_tag.current)}})      //here iam printing h1 tag in the console ,this useEffect will invoke after comp renders
 
   return (
     <div>
@@ -1646,7 +1739,6 @@ useEffect(()=>{{console.log(h1_tag.current)}})      //here iam printing h1 tag i
   )
   
 }
-
 export default Home
 
 
@@ -1666,7 +1758,6 @@ useEffect(()=>{t.current.focus()})     //this will used execute ,means that inpu
   )
   
 }
-
 export default Home
 
 
@@ -1674,6 +1765,7 @@ export default Home
 ex-3(not trigger re-render when value changes)
 -------------------------------------------------------
 import React, {  useRef } from 'react'
+
 
 const Home = () => {
   const t = useRef(10)
@@ -1694,7 +1786,6 @@ const Home = () => {
   )
   
 }
-
 export default Home
 ---
 
@@ -1822,8 +1913,6 @@ function App() {
     <context.Provider value={data}>   //need to put the data like this
     <Header/>  {/* sending to Header */}
     </context.Provider>
-    
-    
 
     </>
   );
@@ -1869,7 +1958,6 @@ const About = () => {
     </div>
   )
 }
-
 export default About
 ---
 
@@ -1919,9 +2007,11 @@ function App() {
 
   /* for searching some one by name,in the input feild search name will give,initially all sdata showed forst bcz ('') given */
   const [searchText, updateSearchText] = useState('')
+
   /*function called here with passing two arguements data and what ever user want to search that word/name*/
   const searchResult = searchData(data, searchText)
-  /*this is function will search in the data */
+  
+   /*this is function will search in the data */
   function searchData(data, searchText) {
     console.log('searchData function executed...')  //this will print every time comp re-render,means every time re-rendering this fun execution
     return data.filter((data) =>  data.name.toLowerCase().includes(searchText.toLowerCase()) )
@@ -2063,6 +2153,19 @@ useCallBack
          then child component re-render again
 -->to avoid the above situation we use useCallBack this will prevent re-renderness unless dependecies(inputs)changes
 
+
+
+syntax
+-------------
+
+==>useCallback(<FUNCTION>,<DEPENDENCY>)
+
+inside function will be remember ,
+    if dependecies of previous time render and current render not changed( means same) then it will not return new (same or previous function will give )
+    if dependecies of previous time render and current render changed( means not same) then it will return new(newly calculated one)
+   (simply if depency list changes then it re-creates the function and return it,if not then it i will return stored/cached/rememred function)
+
+
 example scenarion
 ------------------------
 -->in the e-commerce website
@@ -2104,7 +2207,7 @@ function App() {
   return (
     <div>
       <h1>{data}</h1>
-    <Header fun={patent}/>
+      <Header fun={patent}/>
     </div>
   )
 }
@@ -2355,7 +2458,7 @@ Diffarent ways to do Api-calls
 
 1)fetch() method
 --------------------
--->fetch() method is provided by broser which helps to make ajax call
+-->fetch() method is provided by browser which helps to make ajax call
 -->syntax:- fetch(url,[options])
 
 
@@ -2675,9 +2778,32 @@ Since the cart has multiple actions and a more complex structure (list of items,
 
 
 
+Add fontawesome icons in react
+=====================================
+-->there are so many ways to use icons. one of is use font awesome icons
+-->first execute(install) below in react console
 
+1.npm i --save @fortawesome/fontawesome-svg-core
+2.npm i --save @fortawesome/free-solid-svg-icons
+  npm i --save @fortawesome/free-regular-svg-icons
+  npm i --save @fortawesome/free-brands-svg-icons
+3.npm i --save @fortawesome/react-fontawesome@latest
 
+got fontawesome website select icon(free icons) open code use and import also
 
+ex:using & importing
+---------------------
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
+import { faFacebook } from '@fortawesome/free-brands-svg-icons'
+
+<FontAwesomeIcon icon={faEnvelope} />
+<FontAwesomeIcon icon={faFacebook} />
+<button >
+   <FontAwesomeIcon icon={faFacebook} style={{ marginRight: '8px' }} />
+    Login with Facebook
+</button>
+---
 
 
 
