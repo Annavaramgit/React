@@ -1,4 +1,5 @@
 
+
 qns)
 diff b/w class and functional comp's
 life cycle of class comp
@@ -1897,7 +1898,7 @@ example
 ------------
 
 import "./App.css";
-import React, { createContext } from "react";
+import React, {   } from "react";
 import Header from "./Header";
 
 
@@ -1910,8 +1911,8 @@ function App() {
   return (
     <>
     
-    <context.Provider value={data}>   //need to put the data like this
-    <Header/>  {/* sending to Header */}
+    <context.Provider value={data}>          //need to put the data like this
+    <Header/>  {/* sending to Header */}    //inside of provide components are able to use value(only denedent of providers can use value)
     </context.Provider>
 
     </>
@@ -2243,7 +2244,8 @@ export default Header
 
 How to install bootstrap
 ===================================
--->npm install bootstrap   ==>this is the command
+-->npm install bootstrap   ==>this is the command  (provides basic css classess)
+-->npm i react-bootstrap  ==>for react bootstrap
 
 -->import 'bootstrap/dist/css/bootstrap.min.css';    ==>import this in a component wherever we want
 -->@import url(bootstrap/dist/css/bootstrap.min.css) ==>this will import at index.css ,so it will apply whole not for particular component
@@ -2773,6 +2775,49 @@ useReducer
 <--------------------------->
  In an e-commerce application, you might need to manage a shopping cart where users can add items, remove items, or update quantities. 
 Since the cart has multiple actions and a more complex structure (list of items, quantities, prices), useReducer is a good fit.
+
+
+
+Syntax
+----------------
+const[value,function]=useReduce(function,intialValue)
+
+
+ex:simple example
+---------------------------
+Contact.js
+-------------
+import { type } from '@testing-library/user-event/dist/type'
+import React,{useReducer} from 'react'
+
+
+const Contact = () => {
+
+//action we can give any name which hold recent given data
+  function couterUpdate(state,action){
+    switch(action.type){
+      case 'INC':return state+action.payload;
+      case 'DEC':return state-action.payload;
+      case 'RESET': return 0;
+      default: return state;
+
+    }
+
+  }
+//counterUpadate is function,whenever dispatch function call by user then react itself invokes this counterUpadate to update state of comp
+const[counter,dispatch]=useReducer(couterUpdate,0) 
+
+  return (
+    <div className='parent-btn'>
+      <h2>count: {counter}</h2>
+     <button onClick={()=>{dispatch({type:"INC",payload:3})}}>increase</button> //payload optional
+     <button onClick={()=>{dispatch({type:"DEC",payload:3})}}>decrease</button>
+     <button onClick={()=>{dispatch({type:"RESET"})}}>re-set</button>
+      
+    </div>
+  )
+}
+export default Contact
 ---
 
 
@@ -2804,6 +2849,264 @@ import { faFacebook } from '@fortawesome/free-brands-svg-icons'
     Login with Facebook
 </button>
 ---
+
+======================================================================================================================================================================
+									
+									Redux
+								========================
+
+
+what is Redux
+===============
+-->Redux is a global State management javascript-tool or javascript-library
+-->the data stores in centralised place and our components connects that store and use/call data & update,delete,etc.. opetations will do
+
+-->Redux is a pattern and library for managing and updating global application state(official def)
+-->It serves as a centralized store for state that needs to be used across your entire application(official def)
+
+
+
+Note=
+-->This is the basic idea behind Redux: a single centralized place to contain the global state in your application, 
+   and specific patterns to follow when updating that state to make the code predictable.
+
+---->in redux some core terms are there: each of the below are used for specific purpose.
+1.Store
+2.Reducer
+3.Dispatch
+4.Action
+
+
+1.Store
+---------------
+-->it is a centralized place where data of the application stored here and in the form of Object({}).
+-->The current Redux application state lives in an object called the store .(official def)
+
+2.Reducer
+--------------
+-->to acess the data in the Store for update the date or delete etc.. we can't do these operation directly
+-->Reducer is a Function.we use Reducer to update data,delete data,etc
+-->what ever function return that is new state for application.
+
+
+3.Dispatch
+------------------
+-->Dispatch also a Function,Actually we are not invoke Reducer function,React will automatically invoke this Reducer when we invoke Dispatch function
+-->Dispatch internally calls Reducer to update the data which available on store
+-->The Redux store has a method called dispatch. The only way to update the state is to call store.dispatch() and pass in an action object. 
+   The store will run its reducer function and save the new state value inside,(ooficial def)
+
+4.Action
+-------------
+-->Action is a data we pass in Dispatch function as arguement so from dispatch Reducer will get this Action(data) 
+-->It is a data which we want to update in the store.
+-->in the form of object we pass this action along with type,based on type we will write code in reducer and modify the state
+
+5.useSelector
+-------------------
+-->if we want to access data avaible in store into component then we use this useSelector.
+---
+
+
+how to install redux in our application
+----------------------------------------------
+-->npm install @reduxjs/toolkit react-redux  ==> (it will install redux tool kit and react-redux both)
+
+
+Note=
+-->after redux 5 version some of the redux features are deprecated(like createStote())
+-->they introduced redux-toolkit (https://redux-toolkit.js.org/)
+
+
+difference b/w old-redux and redux-toolkit
+=============================================
+1.in old-redux      -->you have to configure redux-devtools manually
+1.in react-toolkit  -->it provides automatic support for redux -devtools extension
+
+2.in old-redux      -->configure redux store is very complicated
+2.in react-toolkit  -->configure redux store is much easier and built in support of mildware
+
+
+3.in old-redux      -->need to create reducers and creators separately-lots of boiler-plate code 
+3.in react-toolkit  -->createSlice() function comes to replace create action and create reducer functions in a single function
+
+
+4.in old-redux      -->lots of code need to write to handle asynchrnous requests
+4.in react-toolkit  -->createAsyncThunk to make asynchrnous requests.
+
+Note=Redux Toolkit automates a lot of boilerplate code, making your development process faster and easier
+
+
+createSlice
+-----------------------------
+-->it comes in redux-toolkit
+-->it is used for simplifies creating action(dispatch) and reducer
+-->actually in redux we will create reducer and action separately
+-->but by using this createSlice we will create reducer then it automatically genarate action(no need to separately checking action.type etc.....)
+-->this will accept name,initialstate,reducer
+-->simply instead of creating reducer we will create slice and inside reducer we will create then automatically action genarate (name/reducermethod -->this like action name)
+-->it reduces lot of boilerplate code(if we are using redux then creating action reducer,action type separate logic that boiler plate code )
+-->we need to create store separately
+
+ex:- ex of creatSlice using
+----------------------------
+import { createSlice, createSlice } from '@reduxjs/toolkit'
+
+const intialState = [];
+
+const createSlice = createSlice({
+    name: 'cart',
+    intialState,
+    reducers: {
+        
+	//when hit addcart button this method (reducer) update state of cart with new data -->state of cart updates
+        //here action automatically creates with name like cart/addCart  (no need to create action)
+       
+           addCart(state, action) {
+	   state.push(action.payload);
+        }
+    }
+});
+
+//this is exporting actions (methods in reducer)
+export const {addCart} =createSlice.action;
+//this is exporting reducer (which gives the state)
+export default createSlice.reducer;
+
+
+
+
+
+
+configureStore
+----------------------
+-->it is introduced in redux toolkit
+-->it is used for create the store
+-->by default thunk middle ware is there in configureStore
+
+-->when ever we use configureStore in reduxtoolkit  thunk middle ware came inbuiltely
+-->thunk middleware uses for reduce boiler platecode like mentioning actiontype and createactions separately when we use createSlice
+-->thunk will take care inbuitely
+-->by using thunk we can perform async operations(actions) like api calls by using createAsyncThunk
+Note
+------
+-->actually to use redux in react there lot of boiler plate code we have to use 
+-->but if we use reduxtoolkit it reduces boilerplate code 
+
+ex:-
+---------
+    import { configureStore } from "@reduxjs/toolkit";
+    import CartSlice from './CartSlice'
+
+    //for creating store we need to use configStore
+    //configstore have one property called reduce in there we need mention the our slices
+    const store = configureStore({
+        reducer:{
+            cart:CartSlice, //here mentioned my cartSlice;
+        }
+    })
+    export default store
+
+
+
+
+Provider
+--------------
+-->which is inside react-redux 
+-->what ever components components store then in the rootcomponent wrap that those componenents inside the Provide along with one property store={our store name}
+
+ex:-
+--------------------------
+import React from 'react'
+import { Outlet } from 'react-router-dom'
+import Header from './Header'
+import { Provider } from 'react-redux'
+import store from '../store/store'
+
+const LayoutComp = () => {
+    return (
+        <>
+            {/* wrap compoents who wants store inside Provide in root component ,here LayoutComp is root component
+                bcz whenver application renders this one is default page*/}
+            <Provider store={store}>
+                <div><Header /></div>
+                <div><Outlet /></div>
+            </Provider>
+        </>
+    )
+}
+
+export default LayoutComp
+---
+
+
+useSelector & useDispatch
+-------------------------------------
+
+-->these both are hooks in react-redux used for accessing and updating redux store.
+
+1.useSelector
+------------------
+-->this hook used for read the data from the redux store
+-->it allows you to select specific piece state from the redux store and use it in the component
+-->it returns specific part of state you want to use in the component
+-->it automatically subscribe to redux to store and it will re-render whenever the selected state is changes 
+
+
+
+ex:- this is useSelecter part code 
+---------------------------------------------
+
+import { useSelector } from 'react-redux';
+
+//from store cart slice it will get the state(data)
+  const cartProducts = useSelector(state => state.cart);//this cart name should what ever we used in store
+
+//we can usebthis cartProducts in cart component
+
+
+
+2.useDispatch()
+-------------------
+-->this hook is used for to dispatch the action to redux-store
+-->actions can triggers the reducer to update the store state
+-->simply it allows to update the state from component 
+
+
+ex:- this is useDispatch part code 
+---------------------------------------------
+
+import { useDispatch } from 'react-redux';
+
+const dispatch = useDispatch();
+ //it will dispatch adding product to cart action  ,invokes addCart method in CartSlice/reducer/
+    const addingCart = (product) => {
+        //if we use redux instead of redux-tookit then we need mention type also,but here action-type take care of reduxtoolkit
+        dispatch(addCart(product));
+    }
+
+<Button variant="primary" onClick={() => addingCart(product)}>Add To Cart</Button> //when button clicks cart state will update (redux store updates
+---
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
